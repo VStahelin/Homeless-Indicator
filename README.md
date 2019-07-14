@@ -9,8 +9,6 @@ A partir disso, sera criado um mapa de calor com os moradoradores de rua a sua v
 
 É uma ideia que pode se colher muitos frutos no futuro.
 
-Google Sheets API Url(https://script.google.com/macros/s/AKfycbwhiDCC7nm59iPd7hp6iSFJ38cgBvKS5mSXjYo5IP2wmblQBz-a/exec)
-Params: Time, Loc, Id
-exemple: 2019-07-14 01:28:21 UTC; -27.568611, -48.803972; XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
-
-DB Id: 12t4WBN1Ndyjkt_iOM4Zqx1X9D64Zsxf3iEhG42s6tVw
+Script Google Sheets API Url: https://script.google.com/macros/s/AKfycbxNpU_ov0O-xPAMg-X8870Y1I-SsRyo22_n8gOty2y7FvF5yoo/exec?
+Params: action, coordinates
+Example: addItem, XXXXXXXXXXXX 
