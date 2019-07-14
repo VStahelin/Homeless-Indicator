@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Homeless Indicator</string>
     <string name="title">Homeless Indicator</string>
-    <string name="mendigo_avistado" translatable="false">Mendigo Avistado</string>
+    <string name="new_homeless">New Homeless</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="geo_addition">New Register</string>
+    <string name="manual_addition">Manual Addition</string>
+    <string name="add_item">Add Item</string>
 </resources>

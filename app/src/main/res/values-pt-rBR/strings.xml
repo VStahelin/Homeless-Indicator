@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Homeless Indicator</string>
+    <string name="title">Indicador de Morador de Rua</string>
+    <string name="new_homeless">Novo Morador de Rua</string>
+    <string name="coordinates">Coordenadas</string>
+    <string name="geo_addition">Novo Registro</string>
+    <string name="manual_addition">Adição Manual</string>
+    <string name="add_item">Adicionar item</string>
 </resources>
