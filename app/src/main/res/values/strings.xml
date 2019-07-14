@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Homeless Indicator</string>
+    <string name="title">Homeless Indicator</string>
+    <string name="mendigo_avistado" translatable="false">Mendigo Avistado</string>
 </resources>
