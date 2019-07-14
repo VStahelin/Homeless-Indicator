@@ -12,3 +12,5 @@ A partir disso, sera criado um mapa de calor com os moradoradores de rua a sua v
 Script Google Sheets API Url: https://script.google.com/macros/s/AKfycbxNpU_ov0O-xPAMg-X8870Y1I-SsRyo22_n8gOty2y7FvF5yoo/exec?
 Params: action, coordinates
 Example: addItem, XXXXXXXXXXXX 
+
+<img align="left" width="300" src="https://i.imgur.com/zXWbdEg.jpg">
