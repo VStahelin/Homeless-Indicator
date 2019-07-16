@@ -1,6 +1,7 @@
 package com.e.homelessindicator;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static  final int REQUEST_LOCATION=1;
 
@@ -26,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AddLocationToDb location = new AddLocationToDb();
     LocationManager locationManager;
     String latitude,longitude;
-
-    Button buttonAddItem, btn_debug;
+    String locationBD;
+    Button buttonAddItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,21 +59,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getlocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getGet();
 
-                locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                //Check gps is enable or not
-                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                {
-                    //Write Function To enable gps
-                    OnGPS();
-                }
-                else
-                {
-                    //GPS is already On then
-                    getLocation();
-                }
             }
         });
+    }
+
+    public void getGet(){
+        locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //Check gps is enable or not
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
+            //Write Function To enable gps
+            OnGPS();
+        }
+        else
+        {
+            //GPS is already On then
+            getLocation();
+        }
     }
 
     private void getLocation() {
@@ -85,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 latitude=String.valueOf(lat);
                 longitude=String.valueOf(longi);
                 showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+                locationBD = latitude + " , " + longitude;
             }
             else if (LocationNetwork !=null)
             {
@@ -93,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 latitude=String.valueOf(lat);
                 longitude=String.valueOf(longi);
                 showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+                locationBD = latitude + " , " + longitude;
             }
             else if (LocationPassive !=null)
             {
@@ -101,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 latitude=String.valueOf(lat);
                 longitude=String.valueOf(longi);
                 showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+                latitude  = latitude + " , " + longitude;
             }
             else
             {
@@ -130,7 +150,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void buttonTest(View v){
-        location.addLocate("Teste de botão");
+        getGet();
+        final ProgressDialog loading = ProgressDialog.show(this,"Adiciondo","Por favor espere");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbxNpU_ov0O-xPAMg-X8870Y1I-SsRyo22_n8gOty2y7FvF5yoo/exec",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> parmas = new HashMap<>();
+
+                //here we pass params
+                parmas.put("action", "addItem");
+                parmas.put("latitude", latitude);
+                parmas.put("longitude", longitude);
+
+                return parmas;
+            }
+        };
+        int socketTimeOut = 50000;// u can change this .. here it is 50 seconds
+
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(retryPolicy);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        queue.add(stringRequest);
         Toast.makeText(MainActivity.this, "Teste", Toast.LENGTH_LONG).show();
     }
 
