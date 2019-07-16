@@ -60,8 +60,8 @@ public class AddLocationToDb extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        if(view==btn_debug){
-            addLocate("da");
-        }
+        //if(view==btn_debug){
+        //    addLocate("da");
+        //}
     }
 }

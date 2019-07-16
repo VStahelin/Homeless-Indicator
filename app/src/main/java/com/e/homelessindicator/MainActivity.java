@@ -130,7 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void buttonTest(View v){
-        //Toast.makeText(MainActivity.this, "In progress", Toast.LENGTH_LONG).show();
+        location.addLocate("Teste de botão");
+        Toast.makeText(MainActivity.this, "Teste", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -138,9 +139,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == buttonAddItem){
             Intent intent = new Intent(getApplicationContext(),AddItem.class);
             startActivity(intent);
-        }
-        if(view == btn_debug){
-            location.addLocate("Teste de botão");
         }
     }
 }
